@@ -153,6 +153,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'job_title' => 'Job Title',
+        'location' => 'Location',
+        'salary' => 'Salary',
+        'min_salary' => 'Min. Salary',
+        'max_salary' => 'Max. Salary',
+        'short_desc' => 'Short Description',
+        'long_desc' => 'Long Description',
+    ],
 
 ];

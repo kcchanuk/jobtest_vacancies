@@ -1,0 +1,92 @@
+/* Fonts */
+body {
+    font-size: 0.875rem;
+    line-height: 1.66;
+}
+.form-control, .btn {
+    font-size: 0.875rem !important;
+}
+
+/* Color */
+.green {
+    color: #73c2af;
+}
+
+/* Forms */
+label.required:after {
+    content: '*';
+    color: #f86c6b;
+}
+
+/* Pagination */
+.page-item.active .page-link {
+    background-color: #73c2af;
+    border-color: #73c2af;
+}
+
+/* Header */
+#header {
+    background-color: #668b9d;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+#header a {
+    color: #fff;
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-bottom: 0;
+}
+
+/* Buttons */
+.btn {
+    text-transform: uppercase;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #73c2af;
+    border-color: #73c2af;
+}
+
+.btn-primary:hover {
+    background-color: #8fcebf;
+    border-color: #8fcebf;
+}
+
+/* Filter Form */
+#filter_vacancies {
+    margin-bottom: 3rem !important;
+}
+
+#filter_vacancies h2 {
+    font-size: 1.25rem;
+    border-bottom: solid 1px #000;
+    padding-bottom: 0.75rem !important;
+    margin-bottom: 1rem !important;
+}
+
+/* Available Vacancies */
+#available_vacancies {
+    background-color: #ebebeb;
+    padding: 0.5rem 1rem !important;
+}
+
+#available_vacancies .btn-primary {
+    color: #73c2af;
+    background-color: #fff;
+    border-color: #fff;
+}
+
+#available_vacancies .btn-primary:hover {
+    color: #fff;
+    background-color: #73c2af;
+    border-color: #73c2af;
+}
+
+    /* Vacancy Items */
+.vacancy-item {
+    box-shadow: 0 0 5px #ccc;
+}
