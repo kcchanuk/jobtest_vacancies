@@ -66,14 +66,7 @@ class VacancyController extends Controller
      */
     public function store(VacancyRequest $request)
     {
-        Vacancy::create([
-            'job_title' => $request->job_title,
-            'location' => $request->location,
-            'min_salary' => $request->min_salary,
-            'max_salary' => $request->max_salary,
-            'short_desc' => $request->short_desc,
-            'long_desc' => $request->long_desc,
-        ]);
+        Vacancy::create($request->validated());
 
         flash(__('general.add_vacancy_success'))->success();
         return redirect()->route('vacancies.create');
@@ -110,13 +103,7 @@ class VacancyController extends Controller
      */
     public function update(Vacancy $vacancy, VacancyRequest $request)
     {
-        $vacancy->job_title = $request->job_title;
-        $vacancy->location = $request->location;
-        $vacancy->min_salary = $request->min_salary;
-        $vacancy->max_salary = $request->max_salary;
-        $vacancy->short_desc = $request->short_desc;
-        $vacancy->long_desc = $request->long_desc;
-        $vacancy->save();
+        $vacancy->update($request->validated());
 
         flash(__('general.update_vacancy_success'))->success();
         return redirect()->route('vacancies.edit', $vacancy);
