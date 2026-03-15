@@ -24,13 +24,13 @@ class VacancyController extends Controller
         $filters = $request->getFilterParams();
 
         // Filter vacancies
-        $vacancies = Vacancy::when($request->job_title, function (Builder $query, string $jobTitle) {
+        $vacancies = Vacancy::when($filters['job_title'], function (Builder $query, string $jobTitle) {
             $query->filterJobTitle($jobTitle);
         })
-            ->when($request->location, function (Builder $query, string $location) {
+            ->when($filters['location'], function (Builder $query, string $location) {
                 $query->filterLocation($location);
             })
-            ->when($request->salary, function (Builder $query, int $salary) {
+            ->when($filters['salary'], function (Builder $query, int $salary) {
                 $query->filterSalary($salary);
             })
             // Keep the task simple by descending order of created_at and 2 results per page
