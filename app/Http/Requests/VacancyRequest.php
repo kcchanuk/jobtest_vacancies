@@ -19,20 +19,21 @@ class VacancyRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     * Request to create or update a vacancy.
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         $rules = [
-            'job_title' => $this->textRule(),
-            'location' => $this->textRule(),
+            'job_title' => $this->requiredTextRule(),
+            'location' => $this->requiredTextRule(),
 
-            'short_desc' => $this->textareaRule(),
-            'long_desc' => $this->textareaRule(),
+            'short_desc' => $this->requiredTextareaRule(),
+            'long_desc' => $this->requiredTextareaRule(),
 
-            'min_salary' => $this->unsignedIntegerRule(),
-            'max_salary' => $this->unsignedIntegerRule(),
+            'min_salary' => $this->requiredUnsignedIntegerRule(),
+            'max_salary' => $this->requiredUnsignedIntegerRule(),
         ];
 
         // Special rules for min_salary and max_salary

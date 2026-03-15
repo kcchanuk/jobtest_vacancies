@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vacancy;
+use App\Http\Requests\VacancyFilterRequest;
 use App\Http\Requests\VacancyRequest;
-use Illuminate\Http\Request;
+use App\Models\Vacancy;
+use Illuminate\Database\Eloquent\Builder;
 
 class VacancyController extends Controller
 {
@@ -13,37 +14,27 @@ class VacancyController extends Controller
      * The result is paginated to list 2 vacancies per page.
      * The sort order is default to show the latest vacancy first.
      *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param VacancyFilterRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(VacancyFilterRequest $request)
     {
-        // Default filter parameters
-        $filters = [
-            'job_title' => '',
-            'location' => '',
-            'salary' => ''
-        ];
+        // Get filter parameters
+        $filters = $request->getFilterParams();
 
-        $vacancies = Vacancy::query();
-
-        if ($request->filled('job_title')) {
-            $vacancies = $vacancies->where('job_title', 'like', '%' . $request->job_title . '%');
-            $filters['job_title'] = $request->job_title;
-        }
-
-        if ($request->filled('location')) {
-            $vacancies = $vacancies->where('location', 'like', '%' . $request->location . '%');
-            $filters['location'] = $request->location;
-        }
-
-        if ($request->filled('salary') and is_numeric($request->salary) and ($request->salary > 0)) {
-            $vacancies = $vacancies->where('min_salary', '<=', $request->salary)
-                ->where('max_salary', '>=', $request->salary);
-            $filters['salary'] = $request->salary;
-        }
-
-        $vacancies = $vacancies->orderByDesc('created_at')->paginate(2);
+        // Filter vacancies
+        $vacancies = Vacancy::when($request->job_title, function (Builder $query, string $jobTitle) {
+            $query->filterJobTitle($jobTitle);
+        })
+            ->when($request->location, function (Builder $query, string $location) {
+                $query->filterLocation($location);
+            })
+            ->when($request->salary, function (Builder $query, int $salary) {
+                $query->filterSalary($salary);
+            })
+            // Keep the task simple by descending order of created_at and 2 results per page
+            ->orderByDesc('created_at')
+            ->paginate(2);
 
         return view('vacancies.index', compact('vacancies', 'filters'));
     }
