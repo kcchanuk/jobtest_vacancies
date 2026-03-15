@@ -6,6 +6,7 @@ use App\Http\Requests\VacancyFilterRequest;
 use App\Http\Requests\VacancyRequest;
 use App\Models\Vacancy;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class VacancyController extends Controller
@@ -43,9 +44,9 @@ class VacancyController extends Controller
     /**
      * Displays add new vacancy form.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('vacancies.create');
     }
@@ -54,9 +55,9 @@ class VacancyController extends Controller
      * Save new vacancy in the database if the request is validated.
      *
      * @param VacancyRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store(VacancyRequest $request)
+    public function store(VacancyRequest $request): RedirectResponse
     {
         Vacancy::create($request->validated());
 
@@ -68,9 +69,9 @@ class VacancyController extends Controller
      * Show the page to display the details of the vacancy
      *
      * @param Vacancy $vacancy
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return View
      */
-    public function show(Vacancy $vacancy)
+    public function show(Vacancy $vacancy): View
     {
         return view('vacancies.show', compact('vacancy'));
     }
@@ -79,9 +80,9 @@ class VacancyController extends Controller
      * Displays the update vacancy form.
      *
      * @param Vacancy $vacancy
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return View
      */
-    public function edit(Vacancy $vacancy)
+    public function edit(Vacancy $vacancy): View
     {
         return view('vacancies.edit', compact('vacancy'));
     }
@@ -91,9 +92,9 @@ class VacancyController extends Controller
      *
      * @param Vacancy $vacancy
      * @param VacancyRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(Vacancy $vacancy, VacancyRequest $request)
+    public function update(Vacancy $vacancy, VacancyRequest $request): RedirectResponse
     {
         $vacancy->update($request->validated());
 
@@ -105,9 +106,9 @@ class VacancyController extends Controller
      * Delete the vacancy and redirects to the list of vacancies page.
      *
      * @param Vacancy $vacancy
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function destroy(Vacancy $vacancy)
+    public function destroy(Vacancy $vacancy): RedirectResponse
     {
         $vacancy->delete();
 
