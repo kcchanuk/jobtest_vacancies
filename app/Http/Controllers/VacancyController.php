@@ -6,6 +6,7 @@ use App\Http\Requests\VacancyFilterRequest;
 use App\Http\Requests\VacancyRequest;
 use App\Models\Vacancy;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 
 class VacancyController extends Controller
 {
@@ -15,9 +16,9 @@ class VacancyController extends Controller
      * The sort order is default to show the latest vacancy first.
      *
      * @param VacancyFilterRequest $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+     * @return View
      */
-    public function index(VacancyFilterRequest $request)
+    public function index(VacancyFilterRequest $request): View
     {
         // Get filter parameters
         $filters = $request->getFilterParams();
